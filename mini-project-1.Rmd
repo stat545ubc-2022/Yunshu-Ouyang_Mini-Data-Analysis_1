@@ -16,7 +16,7 @@ And hopefully the first of many. Let's get started:
 
 2.  Load the packages below.
 
-```{r}
+```{r include=FALSE}
 library(datateachr)
 library(tidyverse)
 ```
@@ -80,10 +80,10 @@ And that is exactly the first thing that you will do!
 
 <!-------------------------- Start your work below ---------------------------->
 
-1: CHOICE_1\_HERE\
-2: CHOICE_2\_HERE\
-3: CHOICE_3\_HERE\
-4: CHOICE_4\_HERE
+1: CHOICE_1\_cancer_sample\
+2: CHOICE_2\_parking_meters\
+3: CHOICE_3\_steam_games\
+4: CHOICE_4\_vancouver_trees
 
 <!----------------------------------------------------------------------------->
 
@@ -93,22 +93,48 @@ And that is exactly the first thing that you will do!
 
 <!-------------------------- Start your work below ---------------------------->
 
-```{r}
+
+```{r include=FALSE}
 ### EXPLORE HERE ###
-steam_games
+#get the first part of cancer_sample dataset, number of rows and columns and the type of this dataset
+head(cancer_sample)
+dim(cancer_sample)
+class(cancer_sample)
+#get the first part of parking_meters dataset, number of rows and columns and the type of this dataset
+head(parking_meters)
+dim(parking_meters)
+class(parking_meters)
+```
+
+```{r include=FALSE}
+#get the first part of steam_games dataset, number of rows and columns and the type of this dataset
+head(steam_games)
+dim(steam_games)
+class(steam_games)
+#get the first part of vancouver_trees dataset, number of rows and columns and the type of this dataset
+head(vancouver_trees)
+dim(vancouver_trees)
+class(vancouver_trees)
 ```
 
 <!----------------------------------------------------------------------------->
 
 1.3 Now that you've explored the 4 datasets that you were initially most interested in, let's narrow it down to 2. What lead you to choose these 2? Briefly explain your choices below, and feel free to include any code in your explanation.
 
-<!-------------------------- Start your work below ---------------------------->
 
+<!-------------------------- Start your work below ---------------------------->
+```
+I would like to choose *cancer_sample* and *vancouver_trees* datasets for my project. The main reason is that I am more famililar with the content in these dataset after running glimpse() or head() function.
+```
 <!----------------------------------------------------------------------------->
 
 1.4 Time for the final decision! Going back to the beginning, it's important to have an *end goal* in mind. For example, if I had chosen the `titanic` dataset for my project, I might've wanted to explore the relationship between survival and other variables. Try to think of 1 research question that you would want to answer with each dataset. Note them down below, and make your final choice based on what seems more interesting to you!
 
 <!-------------------------- Start your work below ---------------------------->
+```
+*cancer_sample*  
+  research question: Do research on cancer sample data and find out the response variable- diagnoisis and its independent variables as well as the relation between selected indenpendent variables and the trend within variables.
+```
 
 <!----------------------------------------------------------------------------->
 
@@ -125,11 +151,44 @@ If we rewind and go back to the learning objectives, you'll see that by the end 
 2.1 Complete *4 out of the following 8 exercises* to dive deeper into your data. All datasets are different and therefore, not all of these tasks may make sense for your data - which is why you should only answer *4*. Use *dplyr* and *ggplot*.
 
 1.  Plot the distribution of a numeric variable.
+```{r }
+#To load ggplot2 first before graphing
+library(ggplot2)
+#plot a histogram of fractal dimention mean on cancer_sample data
+cancer_dat <- cancer_sample
+ggplot(cancer_sample,aes(x=fractal_dimension_mean))+
+  geom_histogram(position="identity")
+```
+
+
 2.  Create a new variable based on other variables in your data (only if it makes sense)
+
+
 3.  Investigate how many missing values there are per variable. Can you find a way to plot this?
+
 4.  Explore the relationship between 2 variables in a plot.
+
+```{r }
+ggplot(cancer_dat, aes(x=perimeter_mean, y=radius_mean)) + 
+  geom_point()+
+  geom_smooth(method=lm, se=FALSE)
+#pairs(~radius_mean+perimeter_mean+area_mean,data = cancer_dat)
+```
+
 5.  Filter observations in your data according to your own criteria. Think of what you'd like to explore - again, if this was the `titanic` dataset, I may want to narrow my search down to passengers born in a particular year...
+
+```{r}
+cancer_dat_sub <- cancer_dat%>%
+  filter(area_mean<=500)
+print(cancer_dat_sub)
+```
+
 6.  Use a boxplot to look at the frequency of different observations within a single variable. You can do this for more than one variable if you wish!
+
+```{r}
+ggplot(cancer_dat,aes(x=fractal_dimension_mean,color=diagnosis))+geom_boxplot()
+```
+
 7.  Make a new tibble with a subset of your data, with variables and observations that you are interested in exploring.
 8.  Use a density plot to explore any of your variables (that are suitable for this type of plot).
 
@@ -137,12 +196,33 @@ If we rewind and go back to the learning objectives, you'll see that by the end 
 
 <!-------------------------- Start your work below ---------------------------->
 
+```
+1.exercise 1  
+  *I want to get a better idea of the frequency of fractal_dimension_mean as one of the independent variables in this dataset. By ploting histagram, I can obviously observe the highest and smallest frequency of fractal_dimension_mean.
+
+2.exercise 4  
+  *I want to find out if there is linear relation between perimeter_mean and radius_mean by applying ggplot with lm() function.
+  
+3.exercise 5  
+  *I want to store all data diagnosis with area_mean under 500 and explore more on the data filtered.
+  
+4.exercise 6  
+  *I want to check the fractal_dimension_mean by groups which refer to diagnosis B and diagnosis M. By ploting this boxplot with color=diagnosis, I can draw conclusion immediately.
+  
+```
 <!----------------------------------------------------------------------------->
 
 # Task 3: Write your research questions (5 points)
 
 So far, you have chosen a dataset and gotten familiar with it through exploring the data. Now it's time to figure out 4 research questions that you would like to answer with your data! Write the 4 questions and any additional comments at the end of this deliverable. These questions are not necessarily set in stone - TAs will review them and give you feedback; therefore, you may choose to pursue them as they are for the rest of the project, or make modifications!
+```
+*research questions*  
+  1.What is the range of fractal_dimension_mean in different types of diagnosis and analyse the data structure such as median and mean?  
+  2.What are the maximum and minimun value of fractal_dimension_mean?  
+  3.What is the difference of fractal_dimension_mean on different types of diagnosis?  
+  4.Which diagnosis has higher frequency of distribution?
 
+```
 <!--- *****START HERE***** --->
 
 # Task 4: Process and summarize your data (13 points)
@@ -158,6 +238,19 @@ Ensure that the output of each operation is printed!
 **Summarizing:**
 
 1.  Compute the *range*, *mean*, and *two other summary statistics* of **one numerical variable** across the groups of **one categorical variable** from your data.
+
+```{r}
+cancer_dat%>%group_by(diagnosis)%>%summarise(
+  range_frac_dim_min= range(fractal_dimension_mean)[1],
+  range_frac_dim_max= range(fractal_dimension_mean)[2],
+  mean_frac_dim = mean(fractal_dimension_mean),
+  median_frac_dim = median(fractal_dimension_mean),
+  IQR_frac_dim = IQR(fractal_dimension_mean),#qt3-qt1
+  first_quantile = quantile(fractal_dimension_mean)[2],
+  third_quantile = quantile(fractal_dimension_mean)[4]
+)
+```
+
 2.  Compute the number of observations for at least one of your categorical variables. Do not use the function `table()`!
 3.  Create a categorical variable with 3 or more groups from an existing numerical variable. You can use this new variable in the other tasks! *An example: age in years into "child, teen, adult, senior".*
 4.  Based on two categorical variables, calculate two summary statistics of your choosing.
@@ -165,14 +258,24 @@ Ensure that the output of each operation is printed!
 **Graphing:**
 
 5.  Create a graph out of summarized variables that has at least two geom layers.
+```{r}
+ggplot(cancer_dat,aes(x=fractal_dimension_mean,color=diagnosis))+
+  geom_density()+geom_histogram(fill="white",alpha=0.5)
+```
+
 6.  Create a graph of your choosing, make one of the axes logarithmic, and format the axes labels so that they are "pretty" or easier to read.
 7.  Make a graph where it makes sense to customize the alpha transparency.
 8.  Create 3 histograms out of summarized variables, with each histogram having different sized bins. Pick the "best" one and explain why it is the best.
 
+
+
 Make sure it's clear what research question you are doing each operation for!
 
 <!------------------------- Start your work below ----------------------------->
-
+```
+I did summarizing 1 in order to answer research question 1&2.  
+I did graphing 5 in order to answer research question 3&4.
+```
 <!----------------------------------------------------------------------------->
 
 ### 1.2 (3 points)
@@ -180,7 +283,10 @@ Make sure it's clear what research question you are doing each operation for!
 Based on the operations that you've completed, how much closer are you to answering your research questions? Think about what aspects of your research questions remain unclear. Can your research questions be refined, now that you've investigated your data a bit more? Which research questions are yielding interesting results?
 
 <!-------------------------- Start your work below ---------------------------->
-
+```
+I have answering all my research questions.  
+The most interesting result I got from this data analysis is that the fractal_dimension_mean on diagnosis B is much higher than that of diagnosis M. The distribution of fractal_dimension_mean on diagnosis B follow a normal distribution while the distribution of fractal_dimension_mean on diagnosis M seems to be random.
+```
 <!----------------------------------------------------------------------------->
 
 ### Attribution
