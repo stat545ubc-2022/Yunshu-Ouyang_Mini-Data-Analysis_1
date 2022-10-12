@@ -15,6 +15,20 @@ And hopefully the first of many. Let’s get started:
 
 2.  Load the packages below.
 
+``` r
+library(datateachr)
+library(tidyverse)
+```
+
+    ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+    ## ✔ ggplot2 3.3.6      ✔ purrr   0.3.4 
+    ## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
+    ## ✔ tidyr   1.2.1      ✔ stringr 1.4.1 
+    ## ✔ readr   2.1.2      ✔ forcats 0.5.2 
+    ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ✖ dplyr::filter() masks stats::filter()
+    ## ✖ dplyr::lag()    masks stats::lag()
+
 3.  Make a repository in the <https://github.com/stat545ubc-2022>
     Organization. You will be working with this repository for the
     entire data analysis project. You can either make it public, or make
@@ -145,6 +159,141 @@ but do you want to use more than one? Would you like to write more
 comments outside of the code chunk?
 
 <!-------------------------- Start your work below ---------------------------->
+
+``` r
+### EXPLORE HERE ###
+#get the first part of cancer_sample dataset, number of rows and columns and the type of this dataset
+head(cancer_sample)
+```
+
+    ## # A tibble: 6 × 32
+    ##       ID diagn…¹ radiu…² textu…³ perim…⁴ area_…⁵ smoot…⁶ compa…⁷ conca…⁸ conca…⁹
+    ##    <dbl> <chr>     <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
+    ## 1 8.42e5 M          18.0    10.4   123.    1001   0.118   0.278   0.300   0.147 
+    ## 2 8.43e5 M          20.6    17.8   133.    1326   0.0847  0.0786  0.0869  0.0702
+    ## 3 8.43e7 M          19.7    21.2   130     1203   0.110   0.160   0.197   0.128 
+    ## 4 8.43e7 M          11.4    20.4    77.6    386.  0.142   0.284   0.241   0.105 
+    ## 5 8.44e7 M          20.3    14.3   135.    1297   0.100   0.133   0.198   0.104 
+    ## 6 8.44e5 M          12.4    15.7    82.6    477.  0.128   0.17    0.158   0.0809
+    ## # … with 22 more variables: symmetry_mean <dbl>, fractal_dimension_mean <dbl>,
+    ## #   radius_se <dbl>, texture_se <dbl>, perimeter_se <dbl>, area_se <dbl>,
+    ## #   smoothness_se <dbl>, compactness_se <dbl>, concavity_se <dbl>,
+    ## #   concave_points_se <dbl>, symmetry_se <dbl>, fractal_dimension_se <dbl>,
+    ## #   radius_worst <dbl>, texture_worst <dbl>, perimeter_worst <dbl>,
+    ## #   area_worst <dbl>, smoothness_worst <dbl>, compactness_worst <dbl>,
+    ## #   concavity_worst <dbl>, concave_points_worst <dbl>, symmetry_worst <dbl>, …
+
+``` r
+dim(cancer_sample)
+```
+
+    ## [1] 569  32
+
+``` r
+class(cancer_sample)
+```
+
+    ## [1] "spec_tbl_df" "tbl_df"      "tbl"         "data.frame"
+
+``` r
+#get the first part of parking_meters dataset, number of rows and columns and the type of this dataset
+head(parking_meters)
+```
+
+    ## # A tibble: 6 × 22
+    ##   meter_head  r_mf_9a_6p r_mf_…¹ r_sa_…² r_sa_…³ r_su_…⁴ r_su_…⁵ rate_…⁶ time_…⁷
+    ##   <chr>       <chr>      <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>  
+    ## 1 Twin        $2.00      $4.00   $2.00   $4.00   $2.00   $4.00   <NA>    METER …
+    ## 2 Pay Station $1.00      $1.00   $1.00   $1.00   $1.00   $1.00   $ .50   METER …
+    ## 3 Twin        $1.00      $1.00   $1.00   $1.00   $1.00   $1.00   <NA>    METER …
+    ## 4 Single      $1.00      $1.00   $1.00   $1.00   $1.00   $1.00   <NA>    METER …
+    ## 5 Twin        $2.00      $1.00   $2.00   $1.00   $2.00   $1.00   <NA>    METER …
+    ## 6 Twin        $2.00      $1.00   $2.00   $1.00   $2.00   $1.00   <NA>    METER …
+    ## # … with 13 more variables: t_mf_9a_6p <chr>, t_mf_6p_10 <chr>,
+    ## #   t_sa_9a_6p <chr>, t_sa_6p_10 <chr>, t_su_9a_6p <chr>, t_su_6p_10 <chr>,
+    ## #   time_misc <chr>, credit_card <chr>, pay_phone <chr>, longitude <dbl>,
+    ## #   latitude <dbl>, geo_local_area <chr>, meter_id <chr>, and abbreviated
+    ## #   variable names ¹​r_mf_6p_10, ²​r_sa_9a_6p, ³​r_sa_6p_10, ⁴​r_su_9a_6p,
+    ## #   ⁵​r_su_6p_10, ⁶​rate_misc, ⁷​time_in_effect
+
+``` r
+dim(parking_meters)
+```
+
+    ## [1] 10032    22
+
+``` r
+class(parking_meters)
+```
+
+    ## [1] "tbl_df"     "tbl"        "data.frame"
+
+``` r
+#get the first part of steam_games dataset, number of rows and columns and the type of this dataset
+head(steam_games)
+```
+
+    ## # A tibble: 6 × 21
+    ##      id url          types name  desc_…¹ recen…² all_r…³ relea…⁴ devel…⁵ publi…⁶
+    ##   <dbl> <chr>        <chr> <chr> <chr>   <chr>   <chr>   <chr>   <chr>   <chr>  
+    ## 1     1 https://sto… app   DOOM  Now in… Very P… Very P… May 12… id Sof… Bethes…
+    ## 2     2 https://sto… app   PLAY… PLAYER… Mixed,… Mixed,… Dec 21… PUBG C… PUBG C…
+    ## 3     3 https://sto… app   BATT… Take c… Mixed,… Mostly… Apr 24… Harebr… Parado…
+    ## 4     4 https://sto… app   DayZ  The po… Mixed,… Mixed,… Dec 13… Bohemi… Bohemi…
+    ## 5     5 https://sto… app   EVE … EVE On… Mixed,… Mostly… May 6,… CCP     CCP,CCP
+    ## 6     6 https://sto… bund… Gran… Grand … NaN     NaN     NaN     Rockst… Rockst…
+    ## # … with 11 more variables: popular_tags <chr>, game_details <chr>,
+    ## #   languages <chr>, achievements <dbl>, genre <chr>, game_description <chr>,
+    ## #   mature_content <chr>, minimum_requirements <chr>,
+    ## #   recommended_requirements <chr>, original_price <dbl>, discount_price <dbl>,
+    ## #   and abbreviated variable names ¹​desc_snippet, ²​recent_reviews,
+    ## #   ³​all_reviews, ⁴​release_date, ⁵​developer, ⁶​publisher
+
+``` r
+dim(steam_games)
+```
+
+    ## [1] 40833    21
+
+``` r
+class(steam_games)
+```
+
+    ## [1] "spec_tbl_df" "tbl_df"      "tbl"         "data.frame"
+
+``` r
+#get the first part of vancouver_trees dataset, number of rows and columns and the type of this dataset
+head(vancouver_trees)
+```
+
+    ## # A tibble: 6 × 20
+    ##   tree_id civic_number std_str…¹ genus…² speci…³ culti…⁴ commo…⁵ assig…⁶ root_…⁷
+    ##     <dbl>        <dbl> <chr>     <chr>   <chr>   <chr>   <chr>   <chr>   <chr>  
+    ## 1  149556          494 W 58TH AV ULMUS   AMERIC… BRANDON BRANDO… N       N      
+    ## 2  149563          450 W 58TH AV ZELKOVA SERRATA <NA>    JAPANE… N       N      
+    ## 3  149579         4994 WINDSOR … STYRAX  JAPONI… <NA>    JAPANE… N       N      
+    ## 4  149590          858 E 39TH AV FRAXIN… AMERIC… AUTUMN… AUTUMN… Y       N      
+    ## 5  149604         5032 WINDSOR … ACER    CAMPES… <NA>    HEDGE … N       N      
+    ## 6  149616          585 W 61ST AV PYRUS   CALLER… CHANTI… CHANTI… N       N      
+    ## # … with 11 more variables: plant_area <chr>, on_street_block <dbl>,
+    ## #   on_street <chr>, neighbourhood_name <chr>, street_side_name <chr>,
+    ## #   height_range_id <dbl>, diameter <dbl>, curb <chr>, date_planted <date>,
+    ## #   longitude <dbl>, latitude <dbl>, and abbreviated variable names
+    ## #   ¹​std_street, ²​genus_name, ³​species_name, ⁴​cultivar_name, ⁵​common_name,
+    ## #   ⁶​assigned, ⁷​root_barrier
+
+``` r
+dim(vancouver_trees)
+```
+
+    ## [1] 146611     20
+
+``` r
+class(vancouver_trees)
+```
+
+    ## [1] "tbl_df"     "tbl"        "data.frame"
+
 <!----------------------------------------------------------------------------->
 
 1.3 Now that you’ve explored the 4 datasets that you were initially most
@@ -168,8 +317,11 @@ interesting to you!
 
 <!-------------------------- Start your work below ---------------------------->
 
-    *cancer_sample*  
-      research question: Do research on cancer sample data and find out the response variable- diagnoisis and its independent variables as well as the relation between selected indenpendent variables and the trend within variables.
+*cancer_sample*  
+research question: Do research on cancer sample data and find out the
+response variable- diagnoisis and its independent variables as well as
+the relation between selected indenpendent variables and the trend
+within variables.
 
 <!----------------------------------------------------------------------------->
 
@@ -299,71 +451,61 @@ comments for a reader to understand your reasoning and code.
 
 <!-------------------------- Start your work below ---------------------------->
 
-    1. exercise 1  
-      * I want to get a better idea of the frequency of fractal_dimension_mean as one of the independent variables in this dataset. By ploting histagram, I can obviously observe the highest and smallest frequency of fractal_dimension_mean.
+**exercise 1**  
+\*I want to get a better idea of the frequency of fractal_dimension_mean
+as one of the independent variables in this dataset. By ploting
+histagram, I can obviously observe the highest and smallest frequency of
+fractal_dimension_mean.
 
-    2. exercise 4  
-      * I want to find out if there is linear relation between perimeter_mean and radius_mean by applying ggplot with lm() function.
-      
-    3. exercise 5  
-      * I want to store all data diagnosis with area_mean under 500 and explore more on the data filtered.
-      
-    4. exercise 6  
-      * I want to check the fractal_dimension_mean by groups which refer to diagnosis B and diagnosis M. By ploting this boxplot with color=diagnosis, I can draw conclusion immediately.
-      
+**exercise 4**  
+\*I want to find out if there is linear relation between perimeter_mean
+and radius_mean by applying ggplot with lm() function.
 
-<!----------------------------------------------------------------------------->
+**exercise 5**  
+\*I want to store all data diagnosis with area_mean under 500 and
+explore more on the data filtered.
 
-# Task 3: Write your research questions (5 points)
+**exercise 6**  
+\*I want to check the fractal_dimension_mean by groups which refer to
+diagnosis B and diagnosis M. By ploting this boxplot with
+color=diagnosis, I can draw conclusion immediately.
 
-So far, you have chosen a dataset and gotten familiar with it through
-exploring the data. Now it’s time to figure out 4 research questions
-that you would like to answer with your data! Write the 4 questions and
-any additional comments at the end of this deliverable. These questions
-are not necessarily set in stone - TAs will review them and give you
-feedback; therefore, you may choose to pursue them as they are for the
-rest of the project, or make modifications!
+    <!----------------------------------------------------------------------------->
 
-    *research questions*  
+    # Task 3: Write your research questions (5 points)
+
+    So far, you have chosen a dataset and gotten familiar with it through exploring the data. Now it's time to figure out 4 research questions that you would like to answer with your data! Write the 4 questions and any additional comments at the end of this deliverable. These questions are not necessarily set in stone - TAs will review them and give you feedback; therefore, you may choose to pursue them as they are for the rest of the project, or make modifications!
+
+    **research questions**  
       1.What is the difference between patients with malignant breast mass and benign breast mass in mean fractal dimension of nuclei?
       2.What is the minimum, maximum and median value for mean smoothness of nuclei in total?
       3.Are patients with benign breast mass showing bigger or smaller mean radius of nuclei? 
       4.Which smoothness of nuclei has the highest mean concavity of nuclei?
 
-<!--- *****START HERE***** --->
 
-# Task 4: Process and summarize your data (13 points)
+    <!--- *****START HERE***** --->
 
-From Task 2, you should have an idea of the basic structure of your
-dataset (e.g. number of rows and columns, class types, etc.). Here, we
-will start investigating your data more in-depth using various data
-manipulation functions.
+    # Task 4: Process and summarize your data (13 points)
 
-### 1.1 (10 points)
+    From Task 2, you should have an idea of the basic structure of your dataset (e.g. number of rows and columns, class types, etc.). Here, we will start investigating your data more in-depth using various data manipulation functions.
 
-Now, for each of your four research questions, choose one task from
-options 1-4 (summarizing), and one other task from 4-8 (graphing). You
-should have 2 tasks done for each research question (8 total). Make sure
-it makes sense to do them! (e.g. don’t use a numerical variables for a
-task that needs a categorical variable.). Comment on why each task helps
-(or doesn’t!) answer the corresponding research question.
+    ### 1.1 (10 points)
 
-Ensure that the output of each operation is printed!  
-\#### research question1  
-**Summarizing:**
+    Now, for each of your four research questions, choose one task from options 1-4 (summarizing), and one other task from 4-8 (graphing). You should have 2 tasks done for each research question (8 total). Make sure it makes sense to do them! (e.g. don't use a numerical variables for a task that needs a categorical variable.). Comment on why each task helps (or doesn't!) answer the corresponding research question.
 
-1.  Compute the *range*, *mean*, and *two other summary statistics* of
-    **one numerical variable** across the groups of **one categorical
-    variable** from your data.
+    Ensure that the output of each operation is printed!  
+    #### research question1  
+    **Summarizing:**
 
-``` r
-cancer_dat%>%group_by(diagnosis)%>%summarise(
-  range_frac_dim_min= range(fractal_dimension_mean)[1],
-  range_frac_dim_max= range(fractal_dimension_mean)[2],
-  mean_frac_dim = mean(fractal_dimension_mean),
-  median_frac_dim = median(fractal_dimension_mean),
-)
-```
+    1.  Compute the *range*, *mean*, and *two other summary statistics* of **one numerical variable** across the groups of **one categorical variable** from your data.
+
+    ```r
+    cancer_dat%>%group_by(diagnosis)%>%summarise(
+      range_frac_dim_min= range(fractal_dimension_mean)[1],
+      range_frac_dim_max= range(fractal_dimension_mean)[2],
+      mean_frac_dim = mean(fractal_dimension_mean),
+      median_frac_dim = median(fractal_dimension_mean),
+    )
 
     ## # A tibble: 2 × 5
     ##   diagnosis range_frac_dim_min range_frac_dim_max mean_frac_dim median_frac_dim
@@ -537,19 +679,22 @@ research questions are yielding interesting results?
 
 <!-------------------------- Start your work below ---------------------------->
 
-    **research question 1**  
-      *Patients with malignant breast mass and benign breast mass have similar mean fractal dimension of nuclei.
-      
-    **research question 2**  
-      *I have answered this question by summarize the data.
-      
-    **research question 3**  
-      *The fisrt summarizing answer the research question and graphing can also help with it.
-      
-    **research question 4**  
-      *The summarizing did not help answer this question while the graphing can solve the problem.  
-      
-    *Research question 4 has an interesting result*
+**research question 1**  
+\*Patients with malignant breast mass and benign breast mass have
+similar mean fractal dimension of nuclei.
+
+**research question 2**  
+\*I have answered this question by summarize the data.
+
+**research question 3**  
+\* The fisrt summarizing answer the research question and graphing can
+also help with it.
+
+**research question 4**  
+\*The summarizing did not help answer this question while the graphing
+can solve the problem.
+
+*Research question 4 has an interesting result*
 
 <!----------------------------------------------------------------------------->
 
